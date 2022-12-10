@@ -1,0 +1,35 @@
+{
+    "name": "wpfortress/sdk",
+    "description": "PHP SDK for WPFortress API",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "WPFortress",
+            "email": "support@wpfortress.io"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wpfortress\\Sdk\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Wpfortress\\Sdk\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
