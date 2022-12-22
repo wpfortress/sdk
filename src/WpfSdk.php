@@ -3,6 +3,8 @@
 namespace Wpfortress\Sdk;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Util\Exception;
 use Psr\Http\Message\ResponseInterface;
 
 class WpfSdk
@@ -17,7 +19,7 @@ class WpfSdk
      */
     public function getAccount(): ResponseInterface
     {
-        $this->client()->get('/account');
+        $this->request('get', '/account');
     }
 
     /**
@@ -25,7 +27,7 @@ class WpfSdk
      */
     public function updateAccount($params): ResponseInterface
     {
-        $this->client()->put('/account', $params);
+        $this->request('put', '/account', $params);
     }
 
     /**
@@ -33,7 +35,7 @@ class WpfSdk
      */
     public function createAccountTeam($params): ResponseInterface
     {
-        $this->client()->post('/account/teams', $params);
+        $this->request('post', '/account/teams', $params);
     }
 
     /**
@@ -45,7 +47,7 @@ class WpfSdk
      */
     public function getTeams(): ResponseInterface
     {
-        $this->client()->get('/teams');
+        $this->request('get', '/teams');
     }
 
     /**
@@ -53,7 +55,7 @@ class WpfSdk
      */
     public function getTeam($teamId, $params): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId, $params);
+        $this->request('get', '/teams/' . $teamId, $params);
     }
 
     /**
@@ -61,7 +63,7 @@ class WpfSdk
      */
     public function updateTeam($teamId, $params): ResponseInterface
     {
-        $this->client()->put('/teams/' . $teamId, $params);
+        $this->request('put', '/teams/' . $teamId, $params);
     }
 
     /**
@@ -69,7 +71,7 @@ class WpfSdk
      */
     public function getTeamRoles($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/roles');
+        $this->request('get', '/teams/' . $teamId . '/roles');
     }
 
     /**
@@ -77,7 +79,7 @@ class WpfSdk
      */
     public function getTeamInvitations($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/invitations');
+        $this->request('get', '/teams/' . $teamId . '/invitations');
     }
 
     /**
@@ -85,7 +87,7 @@ class WpfSdk
      */
     public function createTeamInvitation($teamId, $params): ResponseInterface
     {
-        $this->client()->post('/teams/' . $teamId . '/invitations', $params);
+        $this->request('post', '/teams/' . $teamId . '/invitations', $params);
     }
 
     /**
@@ -93,7 +95,7 @@ class WpfSdk
      */
     public function deleteTeamInvitation($teamId, $invitationId): ResponseInterface
     {
-        $this->client()->delete('/teams/' . $teamId . '/invitations/' . $invitationId);
+        $this->request('delete', '/teams/' . $teamId . '/invitations/' . $invitationId);
     }
 
     /**
@@ -101,7 +103,7 @@ class WpfSdk
      */
     public function getTeamMembers($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/members');
+        $this->request('get', '/teams/' . $teamId . '/members');
     }
 
     /**
@@ -109,7 +111,7 @@ class WpfSdk
      */
     public function getTeamMember($teamId, $memberId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/members/' . $memberId);
+        $this->request('get', '/teams/' . $teamId . '/members/' . $memberId);
     }
 
     /**
@@ -117,7 +119,7 @@ class WpfSdk
      */
     public function deleteTeamMember($teamId, $memberId): ResponseInterface
     {
-        $this->client()->delete('/teams/' . $teamId . '/members/' . $memberId);
+        $this->request('delete', '/teams/' . $teamId . '/members/' . $memberId);
     }
 
     /**
@@ -125,7 +127,7 @@ class WpfSdk
      */
     public function getTeamCloudProviders($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/cloud-providers');
+        $this->request('get', '/teams/' . $teamId . '/cloud-providers');
     }
 
     /**
@@ -133,7 +135,7 @@ class WpfSdk
      */
     public function getTeamDomains($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/domains');
+        $this->request('get', '/teams/' . $teamId . '/domains');
     }
 
     /**
@@ -141,7 +143,7 @@ class WpfSdk
      */
     public function getTeamNetworks($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/networks');
+        $this->request('get', '/teams/' . $teamId . '/networks');
     }
 
     /**
@@ -149,7 +151,7 @@ class WpfSdk
      */
     public function getTeamProjects($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/projects');
+        $this->request('get', '/teams/' . $teamId . '/projects');
     }
 
     /**
@@ -157,7 +159,7 @@ class WpfSdk
      */
     public function getTeamCertificates($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/certificates');
+        $this->request('get', '/teams/' . $teamId . '/certificates');
     }
 
     /**
@@ -165,7 +167,7 @@ class WpfSdk
      */
     public function getTeamDatabaseClusters($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/database-clusters');
+        $this->request('get', '/teams/' . $teamId . '/database-clusters');
     }
 
     /**
@@ -173,7 +175,7 @@ class WpfSdk
      */
     public function getTeamCacheClusters($teamId): ResponseInterface
     {
-        $this->client()->get('/teams/' . $teamId . '/cache-clusters');
+        $this->request('get', '/teams/' . $teamId . '/cache-clusters');
     }
 
     /**
@@ -185,7 +187,7 @@ class WpfSdk
      */
     public function getCloudProvider($cloudProviderId): ResponseInterface
     {
-        $this->client()->get('/cloud-providers/' . $cloudProviderId);
+        $this->request('get', '/cloud-providers/' . $cloudProviderId);
     }
 
     /**
@@ -193,7 +195,7 @@ class WpfSdk
      */
     public function updateCloudProvider($cloudProviderId, $params): ResponseInterface
     {
-        $this->client()->put('/cloud-providers/' . $cloudProviderId, $params);
+        $this->request('put', '/cloud-providers/' . $cloudProviderId, $params);
     }
 
     /**
@@ -201,7 +203,7 @@ class WpfSdk
      */
     public function deleteCloudProvider($cloudProviderId): ResponseInterface
     {
-        $this->client()->delete('/cloud-providers/' . $cloudProviderId);
+        $this->request('delete', '/cloud-providers/' . $cloudProviderId);
     }
 
     /**
@@ -209,7 +211,7 @@ class WpfSdk
      */
     public function createCloudProviderNetwork($cloudProviderId, $params): ResponseInterface
     {
-        $this->client()->post('/cloud-providers/' . $cloudProviderId . 'networks', $params);
+        $this->request('post', '/cloud-providers/' . $cloudProviderId . 'networks', $params);
     }
 
     /**
@@ -217,7 +219,7 @@ class WpfSdk
      */
     public function createCloudProviderDomain($cloudProviderId, $params): ResponseInterface
     {
-        $this->client()->post('/cloud-providers/' . $cloudProviderId . 'domains', $params);
+        $this->request('post', '/cloud-providers/' . $cloudProviderId . 'domains', $params);
     }
 
     /**
@@ -225,7 +227,7 @@ class WpfSdk
      */
     public function createCloudProviderCertificate($cloudProviderId, $params): ResponseInterface
     {
-        $this->client()->post('/cloud-providers/' . $cloudProviderId . 'certificates', $params);
+        $this->request('post', '/cloud-providers/' . $cloudProviderId . 'certificates', $params);
     }
 
     /**
@@ -233,7 +235,7 @@ class WpfSdk
      */
     public function createCloudProviderProject($cloudProviderId, $params): ResponseInterface
     {
-        $this->client()->post('/cloud-providers/' . $cloudProviderId . 'projects', $params);
+        $this->request('post', '/cloud-providers/' . $cloudProviderId . 'projects', $params);
     }
 
     /**
@@ -245,7 +247,7 @@ class WpfSdk
      */
     public function getDomain($domainId): ResponseInterface
     {
-        $this->client()->get('/domains/' . $domainId);
+        $this->request('get', '/domains/' . $domainId);
     }
 
     /**
@@ -253,7 +255,7 @@ class WpfSdk
      */
     public function deleteDomain($domainId): ResponseInterface
     {
-        $this->client()->delete('/domains/' . $domainId);
+        $this->request('delete', '/domains/' . $domainId);
     }
 
     /**
@@ -261,7 +263,7 @@ class WpfSdk
      */
     public function getDomainRecords($domainId): ResponseInterface
     {
-        $this->client()->get('/domains/' . $domainId . '/records');
+        $this->request('get', '/domains/' . $domainId . '/records');
     }
 
     /**
@@ -269,7 +271,7 @@ class WpfSdk
      */
     public function createDomainRecord($domainId, $params): ResponseInterface
     {
-        $this->client()->post('/domains/' . $domainId . '/records', $params);
+        $this->request('post', '/domains/' . $domainId . '/records', $params);
     }
 
     /**
@@ -277,7 +279,7 @@ class WpfSdk
      */
     public function getDomainRecord($domainId, $recordId): ResponseInterface
     {
-        $this->client()->get('/domains/' . $domainId . '/records/' . $recordId);
+        $this->request('get', '/domains/' . $domainId . '/records/' . $recordId);
     }
 
     /**
@@ -285,7 +287,7 @@ class WpfSdk
      */
     public function updateDomainRecord($domainId, $recordId, $params): ResponseInterface
     {
-        $this->client()->put('/domains/' . $domainId . '/records/' . $recordId, $params);
+        $this->request('put', '/domains/' . $domainId . '/records/' . $recordId, $params);
     }
 
     /**
@@ -293,7 +295,7 @@ class WpfSdk
      */
     public function deleteDomainRecord($domainId, $recordId): ResponseInterface
     {
-        $this->client()->delete('/domains/' . $domainId . '/records/' . $recordId);
+        $this->request('delete', '/domains/' . $domainId . '/records/' . $recordId);
     }
 
     /**
@@ -305,7 +307,7 @@ class WpfSdk
      */
     public function getNetwork($networkId): ResponseInterface
     {
-        $this->client()->get('/networks/' . $networkId);
+        $this->request('get', '/networks/' . $networkId);
     }
 
     /**
@@ -313,7 +315,7 @@ class WpfSdk
      */
     public function enableNetworkNatGateway($networkId): ResponseInterface
     {
-        $this->client()->post('/networks/' . $networkId . '/nat-gateway');
+        $this->request('post', '/networks/' . $networkId . '/nat-gateway');
     }
 
     /**
@@ -321,7 +323,7 @@ class WpfSdk
      */
     public function disableNetworkNatGateway($networkId): ResponseInterface
     {
-        $this->client()->delete('/networks/' . $networkId . '/nat-gateway');
+        $this->request('delete', '/networks/' . $networkId . '/nat-gateway');
     }
 
     /**
@@ -329,7 +331,7 @@ class WpfSdk
      */
     public function disableNetwork($networkId): ResponseInterface
     {
-        $this->client()->delete('/networks/' . $networkId);
+        $this->request('delete', '/networks/' . $networkId);
     }
 
     /**
@@ -337,7 +339,7 @@ class WpfSdk
      */
     public function getNetworkJumboxes($networkId): ResponseInterface
     {
-        $this->client()->get('/networks/' . $networkId . '/jumpboxes');
+        $this->request('get', '/networks/' . $networkId . '/jumpboxes');
     }
 
     /**
@@ -345,7 +347,7 @@ class WpfSdk
      */
     public function createNetworkJumbox($networkId, $params): ResponseInterface
     {
-        $this->client()->post('/networks/' . $networkId . '/jumpboxes', $params);
+        $this->request('post', '/networks/' . $networkId . '/jumpboxes', $params);
     }
 
     /**
@@ -353,7 +355,7 @@ class WpfSdk
      */
     public function getNetworkLoadBalancers($networkId): ResponseInterface
     {
-        $this->client()->get('/networks/' . $networkId . '/load-balancers');
+        $this->request('get', '/networks/' . $networkId . '/load-balancers');
     }
 
     /**
@@ -361,7 +363,7 @@ class WpfSdk
      */
     public function createNetworkLoadBalance($networkId, $params): ResponseInterface
     {
-        $this->client()->post('/networks/' . $networkId . '/load-balancers', $params);
+        $this->request('post', '/networks/' . $networkId . '/load-balancers', $params);
     }
 
     /**
@@ -369,7 +371,7 @@ class WpfSdk
      */
     public function createNetworkCacheCluster($networkId, $params): ResponseInterface
     {
-        $this->client()->post('/networks/' . $networkId . '/cache-clusters', $params);
+        $this->request('post', '/networks/' . $networkId . '/cache-clusters', $params);
     }
 
     /**
@@ -377,7 +379,7 @@ class WpfSdk
      */
     public function createNetworkDatabaseClustes($networkId, $params): ResponseInterface
     {
-        $this->client()->post('/networks/' . $networkId . '/database-clusters', $params);
+        $this->request('post', '/networks/' . $networkId . '/database-clusters', $params);
     }
 
     /**
@@ -389,7 +391,7 @@ class WpfSdk
      */
     public function getDatabaseCluster($databaseClustersId): ResponseInterface
     {
-        $this->client()->get('/database-clusters/' . $databaseClustersId);
+        $this->request('get', '/database-clusters/' . $databaseClustersId);
     }
 
     /**
@@ -397,7 +399,7 @@ class WpfSdk
      */
     public function deleteDatabaseCluster($databaseClustersId): ResponseInterface
     {
-        $this->client()->delete('/database-clusters/' . $databaseClustersId);
+        $this->request('delete', '/database-clusters/' . $databaseClustersId);
     }
 
     /**
@@ -405,7 +407,7 @@ class WpfSdk
      */
     public function getDatabaseClusterUsers($databaseClustersId): ResponseInterface
     {
-        $this->client()->get('/database-clusters/' . $databaseClustersId . '/users');
+        $this->request('get', '/database-clusters/' . $databaseClustersId . '/users');
     }
 
     /**
@@ -413,7 +415,7 @@ class WpfSdk
      */
     public function createDatabaseClusterUsers($databaseClustersId, $params): ResponseInterface
     {
-        $this->client()->post('/database-clusters/' . $databaseClustersId . '/users', $params);
+        $this->request('post', '/database-clusters/' . $databaseClustersId . '/users', $params);
     }
 
     /**
@@ -421,7 +423,7 @@ class WpfSdk
      */
     public function getDatabaseClusterUser($databaseClustersId, $databaseClusterUserId): ResponseInterface
     {
-        $this->client()->get('/database-clusters/' . $databaseClustersId . '/users/' . $databaseClusterUserId);
+        $this->request('get', '/database-clusters/' . $databaseClustersId . '/users/' . $databaseClusterUserId);
     }
 
     /**
@@ -429,7 +431,7 @@ class WpfSdk
      */
     public function deleteDatabaseClusterUser($databaseClustersId, $databaseClusterUserId): ResponseInterface
     {
-        $this->client()->delete('/database-clusters/' . $databaseClustersId . '/users/' . $databaseClusterUserId);
+        $this->request('delete', '/database-clusters/' . $databaseClustersId . '/users/' . $databaseClusterUserId);
     }
 
     /**
@@ -437,7 +439,7 @@ class WpfSdk
      */
     public function resetDatabaseClusterUserPassword($databaseClustersId, $databaseClusterUserId): ResponseInterface
     {
-        $this->client()->post('/database-clusters/' . $databaseClustersId . '/users/'
+        $this->request('post', '/database-clusters/' . $databaseClustersId . '/users/'
             . $databaseClusterUserId . '/reset-password');
     }
 
@@ -446,7 +448,7 @@ class WpfSdk
      */
     public function getDatabaseClusterDatabases($databaseClustersId): ResponseInterface
     {
-        $this->client()->get('/database-clusters/' . $databaseClustersId . '/databases');
+        $this->request('get', '/database-clusters/' . $databaseClustersId . '/databases');
     }
 
     /**
@@ -454,7 +456,7 @@ class WpfSdk
      */
     public function updateDatabaseClusterDatabase($databaseClustersId, $params): ResponseInterface
     {
-        $this->client()->post('/database-clusters/' . $databaseClustersId . '/databases', $params);
+        $this->request('post', '/database-clusters/' . $databaseClustersId . '/databases', $params);
     }
 
     /**
@@ -462,7 +464,7 @@ class WpfSdk
      */
     public function getDatabaseClusterDatabase($databaseClustersId, $databaseClusterDatabaseId): ResponseInterface
     {
-        $this->client()->get('/database-clusters/' . $databaseClustersId . '/databases/' . $databaseClusterDatabaseId);
+        $this->request('get', '/database-clusters/' . $databaseClustersId . '/databases/' . $databaseClusterDatabaseId);
     }
 
     /**
@@ -470,7 +472,7 @@ class WpfSdk
      */
     public function deleteDatabaseClusterDatabase($databaseClustersId, $databaseClusterDatabaseId): ResponseInterface
     {
-        $this->client()->delete('/database-clusters/' . $databaseClustersId .
+        $this->request('delete', '/database-clusters/' . $databaseClustersId .
             '/databases/' . $databaseClusterDatabaseId);
     }
 
@@ -483,7 +485,7 @@ class WpfSdk
      */
     public function getCacheCluster($cacheClustersId): ResponseInterface
     {
-        $this->client()->get('/cache-clusters/' . $cacheClustersId);
+        $this->request('get', '/cache-clusters/' . $cacheClustersId);
     }
 
     /**
@@ -491,7 +493,7 @@ class WpfSdk
      */
     public function deleteCacheCluster($cacheClustersId): ResponseInterface
     {
-        $this->client()->delete('/cache-clusters/' . $cacheClustersId);
+        $this->request('delete', '/cache-clusters/' . $cacheClustersId);
     }
 
     /**
@@ -503,7 +505,7 @@ class WpfSdk
      */
     public function getJumpbox($jumpboxId): ResponseInterface
     {
-        $this->client()->get('/jumpboxes/' . $jumpboxId);
+        $this->request('get', '/jumpboxes/' . $jumpboxId);
     }
 
     /**
@@ -511,7 +513,7 @@ class WpfSdk
      */
     public function deleteJumpbox($jumpboxId): ResponseInterface
     {
-        $this->client()->delete('/jumpboxes/' . $jumpboxId);
+        $this->request('delete', '/jumpboxes/' . $jumpboxId);
     }
 
     /**
@@ -523,7 +525,7 @@ class WpfSdk
      */
     public function getLoadBalance($loadBalancersId): ResponseInterface
     {
-        $this->client()->get('/load-balancers/' . $loadBalancersId);
+        $this->request('get', '/load-balancers/' . $loadBalancersId);
     }
 
     /**
@@ -531,7 +533,7 @@ class WpfSdk
      */
     public function deleteLoadBalance($loadBalancersId): ResponseInterface
     {
-        $this->client()->delete('/load-balancers/' . $loadBalancersId);
+        $this->request('delete', '/load-balancers/' . $loadBalancersId);
     }
 
     /**
@@ -543,7 +545,7 @@ class WpfSdk
      */
     public function getCertificate($certificatesId): ResponseInterface
     {
-        $this->client()->get('/certificates/' . $certificatesId);
+        $this->request('get', '/certificates/' . $certificatesId);
     }
 
     /**
@@ -551,7 +553,7 @@ class WpfSdk
      */
     public function deleteCertificate($certificatesId): ResponseInterface
     {
-        $this->client()->delete('/certificates/' . $certificatesId);
+        $this->request('delete', '/certificates/' . $certificatesId);
     }
 
     /**
@@ -563,7 +565,7 @@ class WpfSdk
      */
     public function getProject($projectId): ResponseInterface
     {
-        $this->client()->get('/projects/' . $projectId);
+        $this->request('get', '/projects/' . $projectId);
     }
 
     /**
@@ -571,7 +573,111 @@ class WpfSdk
      */
     public function deleteProject($projectId): ResponseInterface
     {
-        $this->client()->delete('/projects/' . $projectId);
+        $this->request('delete', '/projects/' . $projectId);
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    protected function request($method, $uri, array $params = []): array
+    {
+        try {
+            return $this->requestWithoutErrorHandling($method, $uri, $params);
+        } catch (GuzzleException $e) {
+            $response = $e->getResponse();
+            $this->displayRequestErrors($response);
+            throw $e;
+        }
+        // TODO: catch other exceptions
+    }
+
+    /**
+     * Make a request to the API and return the resulting JSON array.
+     *
+     * @param string $method
+     * @param string $uri
+     * @param array $json
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    protected function requestWithoutErrorHandling(string $method, string $uri, array $json = []): array
+    {
+        return json_decode((string) $this->client()->request($method, $uri, [
+            'json'    => $json,
+            'headers' => [
+                'Accept'        => 'application/json',
+                'Content-Type'  => 'application/json',
+                'Authorization' => 'Bearer ' . getenv('API_TOKEN'),
+            ],
+        ])->getBody(), true);
+    }
+
+    /**
+     * Make an HTTP request and display any validation errors.
+     *
+     * @param string $method
+     * @param string $uri
+     * @param  array  $json
+     *
+     * @return array
+     */
+    protected function requestWithErrorHandling(string $method, string $uri, array $json = []): array
+    {
+        try {
+            return $this->request($method, $uri, $json);
+        } catch (\Exception $e) {
+            $response = $e->getResponse();
+
+            if (in_array($response->getStatusCode(), [400, 422])) {
+                $this->displayValidationErrors($response);
+
+                exit(1);
+            }
+
+            throw $e;
+        } catch (GuzzleException $e) {
+            throw $e;
+        }
+    }
+
+
+    protected function displayRequestErrors($response): void
+    {
+        if ($response->getStatusCode() === 401) {
+            throw new \Exception('Invalid API token provided.');
+        }
+
+        if ($response->getStatusCode() === 402) {
+            throw new \Exception('Your account is not active.');
+        }
+
+        if ($response->getStatusCode() === 403) {
+            throw new \Exception('You are not authorized to perform this action.');
+        }
+
+        if ($response->getStatusCode() === 404) {
+            throw new \Exception('The requested resource was not found.');
+        }
+
+        if ($response->getStatusCode() === 409) {
+            throw new \Exception('This operation is already in progress. Please try again later.');
+        }
+
+        if ($response->getStatusCode() === 429) {
+            throw new \Exception('You are attempting this action too often. Please try again later.');
+        }
+    }
+
+    protected function displayValidationErrors($response): void
+    {
+        $errors = json_decode(
+            (string) $response->getBody(),
+            true
+        )['errors'];
+        foreach ($errors as $error) {
+            throw new Exception("Error - {$error}");
+        }
     }
 
     protected function client(): Client
